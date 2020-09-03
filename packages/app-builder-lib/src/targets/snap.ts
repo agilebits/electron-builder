@@ -189,16 +189,7 @@ export default class SnapTarget extends Target {
     // snapcraft.yaml inside a snap directory
     const snapMetaDir = path.join(stageDir, this.isUseTemplateApp ? "meta" : "snap")
     const desktopFile = path.join(snapMetaDir, "gui", `${snap.name}.desktop`)
-    
-    let exec = packager.executableName
-    const executableArgs = this.options.executableArgs
-    if (executableArgs) {
-      exec += " "
-      exec += executableArgs.join(" ")
-    }
-    exec += " %U"    
-    
-    await this.helper.writeDesktopEntry(this.options, exec, desktopFile, {
+    await this.helper.writeDesktopEntry(this.options, packager.executableName, desktopFile, {
       // tslint:disable:no-invalid-template-strings
       Icon: "${SNAP}/meta/gui/icon.png"
     })
